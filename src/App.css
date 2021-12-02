@@ -1,3 +1,16 @@
+<link href='https://fonts.googleapis.com/css?family=Playfair Display' rel='stylesheet'>
+
+.meditationContent {
+  font-family: 'Playfair Display';
+  text-align:  'left';
+}.large {
+  font-size:  100px;
+}.medium{
+  font-size:  50px;
+}.small{
+  font-size:  25px;
+}
+
 .App {
   text-align: center;
 }
