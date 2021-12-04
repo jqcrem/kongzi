@@ -1,7 +1,11 @@
 import React, {Component} from 'react'
-import Box from '@mui/material/Box';
+import {Box, IconButton }from '@mui/material';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+// import {
+// 	ArrowForward,
+// 	ArrowBack
+// } from '@mui/icons-material';
 import '../App.css';
 
 const ContentsBox = (props) => {
@@ -19,6 +23,20 @@ const ContentsBox = (props) => {
     </Box>
 }
 
+const DirectionButton = (props) => {
+	const iconMap = {
+		'E': <ArrowForward />,
+		'W': <ArrowBack />,
+		'N': <ArrowBack />,
+		'S': <ArrowForward />
+	};
+	return <IconButton>
+		{/*<ArrowBackIosIcon />*/}
+		{iconMap[props.dir]}
+	</IconButton>
+
+}
+
 class Tile extends React.Component {
 	constructor(props) {
     	super(props);
@@ -34,17 +52,19 @@ class Tile extends React.Component {
 	}
 
 	render() {
-		return <Box
+		return <div>
+		{/*<DirectionButton dir='W'/>*/}
+		<Box
 			height='100vh'
 			width='100vw'
-			justifyContent='center'
+			justifyContent='center' 
 			alignItems='center'
 			display='flex'
 		>
 		<ContentsBox text={`Ok what happens if you have  a lot of text  a lot of text  a lot of text
 		    			 a lot of text  a lot of text  a lot of text  a lot of text  a lot of text
 		    			  a lot of text  a lot of text`}/>
-		</Box>
+		</Box></div>
 	}
 
 }
