@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
-import Box from '@mui/material/Box';
+import { 
+	Box,
+	Grid
+} from '@mui/material';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import '../App.css';
@@ -10,7 +13,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 const ContentsBox = (props) => {
 	return <Box
         width='50%'
-        height='50%'
+        height='100%'
         backgroundColor='primary.dark'
         justifyContent='left'
         alignItems="top"
@@ -21,6 +24,7 @@ const ContentsBox = (props) => {
     	</text>
     </Box>
 }
+
 
 class Tile extends React.Component {
 	constructor(props) {
@@ -37,18 +41,12 @@ class Tile extends React.Component {
 	}
 
 	render() {
-		return <Box
-			height='100vh'
-			width='100vw'
-			justifyContent='center'
-			alignItems='center'
-			display='flex'
-		>
-		<i class="bi bi-chevron-compact-left text-warning" style={{fontSize: 70}}></i>
-		<ContentsBox text={`Ok whattt happens if you have  a lot of text  a lot of text  a lot of text
-		    			 a lot of text  a lot of text  a lot of text  a lot of text  a lot of text
-		    			  a lot of text  a lot of text`}/>
-		</Box>
+		return <div>
+			<ContentsBox text={`Ok whattt happens if you have  a lot of text  a lot of text  a lot of text
+			    			 a lot of text  a lot of text  a lot of text  a lot of text  a lot of text
+			    			  a lot of text  a lot of text`}/>
+
+		  </div>
 	}
 
 }
