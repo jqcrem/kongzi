@@ -3,6 +3,9 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import '../App.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
+
 
 const ContentsBox = (props) => {
 	return <Box
@@ -41,7 +44,8 @@ class Tile extends React.Component {
 			alignItems='center'
 			display='flex'
 		>
-		<ContentsBox text={`Ok what happens if you have  a lot of text  a lot of text  a lot of text
+		<i class="bi bi-chevron-compact-left text-warning" style={{fontSize: 70}}></i>
+		<ContentsBox text={`Ok whattt happens if you have  a lot of text  a lot of text  a lot of text
 		    			 a lot of text  a lot of text  a lot of text  a lot of text  a lot of text
 		    			  a lot of text  a lot of text`}/>
 		</Box>
