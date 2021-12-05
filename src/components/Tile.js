@@ -29,6 +29,7 @@ const ContentsBox = (props) => {
 class Tile extends React.Component {
 	constructor(props) {
     	super(props);
+    	console.log(props.content);
 	    this.state = {
 	    	contents: props.content,
 	    	directions: {
@@ -42,10 +43,11 @@ class Tile extends React.Component {
 
 	render() {
 		return <div>
-			<ContentsBox text={`Ok whattt happens if you have  a lot of text  a lot of text  a lot of text
+{/*			<ContentsBox text={`Ok whattt happens if you have  a lot of text  a lot of text  a lot of text
 			    			 a lot of text  a lot of text  a lot of text  a lot of text  a lot of text
-			    			  a lot of text  a lot of text`}/>
-
+			    			  a lot of text  a lot of text a lottttttt of text a lot of text a lot of text a lot of text a lot of text a lot`}/>
+*/}
+			<ContentsBox text={this.props.content} />
 		  </div>
 	}
 

@@ -2,13 +2,15 @@ import React, {Component} from 'react'
 import { 
 	Box,
 	Grid,
-	Stack
+	Stack,
+	IconButton
 } from '@mui/material';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import '../App.css';
 import Tile from './Tile';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import * as TileDatum from './TileData';
 
 
 
@@ -19,17 +21,35 @@ const DirectionButton = (props) => {
 		'N': <i class="bi bi-chevron-compact-up text-warning" style={{fontSize: 70}}></i>,
 		'S': <i class="bi bi-chevron-compact-down text-warning" style={{fontSize: 70}}></i>
 	};
-	return iconMap[props.dir]
+	return <IconButton onClick={() => {
+		props.callback(props.dir);
+	}}> 
+		{iconMap[props.dir]}
+	</IconButton>
 }
 
 
 class TileRenderer extends React.Component {
+	constructor(props) {
+		super(props);
+		console.log(TileDatum.Tile1.S['S']);
+		this.state = {
+			currentTile: TileDatum.Tile1
+		}
+	}
+
+	directionClick = (dir) => {
+		console.log(this.state.currentTile);
+		this.setState({
+			currentTile: this.state.currentTile[dir]
+		});
+	}
 
 	render() {
 		return (
 			<Box
 				height='100vh'
-				width='100vw'
+				qqqwidth='100vw'
 				justifyContent='center' 
 				alignItems='center'
 				display='flex'
@@ -40,7 +60,7 @@ class TileRenderer extends React.Component {
 					textAlign='left'
 					backgroundColor='primary.dark'
 				>
-			    	<DirectionButton dir='W' />
+			    	<DirectionButton dir='W' callback={this.directionClick}/>
 			  	</Grid>
 			  	<Grid 
 			  		container xs={10} 
@@ -54,7 +74,7 @@ class TileRenderer extends React.Component {
 			  			item xs={1}
 			  			align='top'
 			  		>
-			  			<DirectionButton dir='N'/>
+		  				<DirectionButton dir='N' callback={this.directionClick}/>
 			  		</Grid>
 			  		<Grid item backgroundColor='orange'>
 				  		<Grid container 
@@ -64,14 +84,13 @@ class TileRenderer extends React.Component {
 				  			justifyContent='center'
 				  			alignItems='center'
 				  		>
-				  				<Tile />
+				  				<Tile content={this.state.currentTile.content}/>
 				  		</Grid>
 				  	</Grid>
 			  		<Grid 
 			  			item xs={1}
-			  			backgroundColor='red' 
 			  		>
-			  			<DirectionButton dir='S'/>
+			  			<DirectionButton dir='S' callback={this.directionClick}/>
 			  		</Grid>
 			  	</Grid>
 			  	<Grid 
@@ -79,7 +98,7 @@ class TileRenderer extends React.Component {
 			  		textAlign='right' 
 			  		backgroundColor='primary.dark'
 			  	>
-			  		<DirectionButton dir='E' />
+			  		<DirectionButton dir='E' callback={this.directionClick}/>
 			  	</Grid>
 			</Grid>	
 			</Box>
