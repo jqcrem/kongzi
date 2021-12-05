@@ -12,7 +12,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const ContentsBox = (props) => {
 	return <Box
-        width='50%'
+        width='100%'
         height='100%'
         backgroundColor='primary.dark'
         justifyContent='left'

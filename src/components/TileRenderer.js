@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import { 
 	Box,
-	Grid
+	Grid,
+	Stack
 } from '@mui/material';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -34,14 +35,51 @@ class TileRenderer extends React.Component {
 				display='flex'
 			>
 			<Grid container alignItems="center" direction="row" justifyContent="space-around">
-				<Grid item xs={1}>
+				<Grid 
+					item xs={1}
+					textAlign='left'
+					backgroundColor='primary.dark'
+				>
 			    	<DirectionButton dir='W' />
 			  	</Grid>
-			  	<Grid item xs={10}>
-			  		<Tile />
+			  	<Grid 
+			  		container xs={10} 
+			  		backgroundColor='primary.light'
+			  		align='center'
+			  		direction='column'
+			  		height='100vh'
+			  		justifyContent="space-between"
+			  	>
+			  		<Grid 
+			  			item xs={1}
+			  			align='top'
+			  		>
+			  			<DirectionButton dir='N'/>
+			  		</Grid>
+			  		<Grid item backgroundColor='orange'>
+				  		<Grid container 
+				  			xs={10} 
+				  			direction='column'
+				  			backgroundColor='green'
+				  			justifyContent='center'
+				  			alignItems='center'
+				  		>
+				  				<Tile />
+				  		</Grid>
+				  	</Grid>
+			  		<Grid 
+			  			item xs={1}
+			  			backgroundColor='red' 
+			  		>
+			  			<DirectionButton dir='S'/>
+			  		</Grid>
 			  	</Grid>
-			  	<Grid item xs={1}>
-			  		<DirectionButton dir='E'/>
+			  	<Grid 
+			  		item xs={1} 
+			  		textAlign='right' 
+			  		backgroundColor='primary.dark'
+			  	>
+			  		<DirectionButton dir='E' />
 			  	</Grid>
 			</Grid>	
 			</Box>
