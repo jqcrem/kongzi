@@ -25,4 +25,13 @@ router.route('/add').post((req, res) => {
 		.catch(err => res.status(400).json('Error: '+err));
 })
 
+router.route('/:id').get((req, res) => {
+	console.log('edge get by id');
+
+	Edge.findOne({ritualA: req.params.id})
+		.then(ritual => res.json(ritual))
+		.catch(err => res.status(400).json('Error: '+err));
+});
+
+
 module.exports = router;

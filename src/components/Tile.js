@@ -14,7 +14,7 @@ const ContentsBox = (props) => {
 	return <Box
         width='100%'
         height='100%'
-        backgroundColor='primary.dark'
+        //backgroundColor='primary.dark'
         justifyContent='left'
         alignItems="top"
         display="flex"

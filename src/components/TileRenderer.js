@@ -11,6 +11,7 @@ import '../App.css';
 import Tile from './Tile';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import * as TileDatum from './TileData';
+import axios from 'axios';
 
 
 
@@ -35,7 +36,7 @@ class TileRenderer extends React.Component {
 		console.log(TileDatum.Tile1.S['S']);
 		this.state = {
 			currentTile: "61ae3aff9b0eb350c2df0867",
-			contents: "",
+			content: "",
 			N: "",
 			S: "",
 			E: "",
@@ -43,15 +44,19 @@ class TileRenderer extends React.Component {
 		}
 	}
 
-	setTile = () => {
-
+	setTile = (idString) => {
+		axios.get(`http://localhost:3000/rituals/${idString}`)
+			.then(res => this.setState({
+				content: res.data.content
+			}));
 	}
 
 	directionClick = (dir) => {
 		console.log(this.state.currentTile);
-		this.setState({
-			currentTile: this.state.currentTile[dir]
-		});
+		this.setTile(this.state.currentTile);
+		// this.setState({
+		// 	currentTile: this.state.currentTile[dir]
+		// });
 	}
 
 	render() {
@@ -67,13 +72,13 @@ class TileRenderer extends React.Component {
 				<Grid 
 					item xs={1}
 					textAlign='left'
-					backgroundColor='primary.dark'
+					//backgroundColor='primary.dark'
 				>
 			    	<DirectionButton dir='W' callback={this.directionClick}/>
 			  	</Grid>
 			  	<Grid 
 			  		container xs={10} 
-			  		backgroundColor='primary.light'
+			  		//backgroundColor='primary.light'
 			  		align='center'
 			  		direction='column'
 			  		height='100vh'
@@ -85,15 +90,17 @@ class TileRenderer extends React.Component {
 			  		>
 		  				<DirectionButton dir='N' callback={this.directionClick}/>
 			  		</Grid>
-			  		<Grid item backgroundColor='orange'>
+			  		<Grid item 
+			  			//backgroundColor='orange'
+			  		>
 				  		<Grid container 
 				  			xs={10} 
 				  			direction='column'
-				  			backgroundColor='green'
+				  			//backgroundColor='green'
 				  			justifyContent='center'
 				  			alignItems='center'
 				  		>
-				  				<Tile content={this.state.currentTile.content}/>
+				  				<Tile content={this.state.content}/>
 				  		</Grid>
 				  	</Grid>
 			  		<Grid 
@@ -105,7 +112,7 @@ class TileRenderer extends React.Component {
 			  	<Grid 
 			  		item xs={1} 
 			  		textAlign='right' 
-			  		backgroundColor='primary.dark'
+			  		//backgroundColor='primary.dark'
 			  	>
 			  		<DirectionButton dir='E' callback={this.directionClick}/>
 			  	</Grid>
