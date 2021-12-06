@@ -34,8 +34,17 @@ class TileRenderer extends React.Component {
 		super(props);
 		console.log(TileDatum.Tile1.S['S']);
 		this.state = {
-			currentTile: TileDatum.Tile1
+			currentTile: "61ae3aff9b0eb350c2df0867",
+			contents: "",
+			N: "",
+			S: "",
+			E: "",
+			W: ""
 		}
+	}
+
+	setTile = () => {
+
 	}
 
 	directionClick = (dir) => {
