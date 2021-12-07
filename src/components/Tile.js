@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import { 
 	Box,
-	Grid
+	Grid,
+	Paper
 } from '@mui/material';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -25,32 +26,47 @@ const ContentsBox = (props) => {
     </Box>
 }
 
+const OptionsBox = (props) => {
+	return <Box
+		width="flex"
+		height="flex"
+		backgroundColor='primary.dark'
+	>
+		<text class="meditationContent small">
+		 {props.text}
+		</text>
+	</Box>
+}
 
-class Tile extends React.Component {
-	constructor(props) {
-    	super(props);
-    	console.log(props.content);
-	    this.state = {
-	    	contents: props.content,
-	    	directions: {
-	    		'N': props.N,
-	    		'S': props.S,
-	    		'E': props.E,
-	    		'W': props.W
-	    	}
-	    };
+const OptionsRow = (props) => {
+	return <Grid container justifyContent="center" direction="row" spacing={4}>
+		{Object.entries(props.directions).map((element, index) => {
+			{/*console.log("item");*/}
+			return (
+				<Grid item>
+					<OptionsBox text={element[1] ? element[1] : ""}/>
+				</Grid>
+			)
+		})}
+	</Grid>
+}
+
+
+const Tile = (props) => {
+	const directions = {
+		'N': props.N,
+		'S': props.S,
+		'E': props.E,
+		'W': props.W
 	}
 
-	render() {
-		return <div>
-{/*			<ContentsBox text={`Ok whattt happens if you have  a lot of text  a lot of text  a lot of text
-			    			 a lot of text  a lot of text  a lot of text  a lot of text  a lot of text
-			    			  a lot of text  a lot of text a lottttttt of text a lot of text a lot of text a lot of text a lot of text a lot`}/>
-*/}
-			<ContentsBox text={this.props.content} />
-		  </div>
-	}
+	return <div>
+		<ContentsBox text={props.content} />
+		<OptionsRow directions={directions}/>
+
+	  </div>
 
 }
 
 export default Tile;
+

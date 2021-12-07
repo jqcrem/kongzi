@@ -14,8 +14,12 @@ router.route('/add').post((req, res) => {
 	const category = req.body.category;
 
 	const newRitual = new Ritual({
-		'content': content,
-		'category': category
+		'content' : content,
+		'category' : category,
+		'N' : req.body.N,
+		'S' : req.body.S,
+		'E' : req.body.E,
+		'W' : req.body.W,
 	});
 
 	newRitual.save()

@@ -33,26 +33,44 @@ const DirectionButton = (props) => {
 class TileRenderer extends React.Component {
 	constructor(props) {
 		super(props);
-		console.log(TileDatum.Tile1.S['S']);
 		this.state = {
 			currentTile: "61ae3aff9b0eb350c2df0867",
 			content: "",
 			N: "",
 			S: "",
 			E: "",
-			W: ""
+			W: "",
+			dir: {},
 		}
+	}
+
+	componentDidMount = () => {
+		this.setTile(this.state.currentTile);
 	}
 
 	setTile = (idString) => {
 		axios.get(`http://localhost:3000/rituals/${idString}`)
-			.then(res => this.setState({
-				content: res.data.content
-			}));
+			.then(res => {
+				console.log(res.data)
+				console.log(res.data.E);
+				this.setState({
+					content: res.data.content,
+					N: res.data.N,
+					S: res.data.S,
+					E: res.data.E,
+					W: res.data.W
+				});
+			});
+		var edges = axios.get(`http://localhost:3000/edges/${idString}`)
+			.then(res => {
+				// console.log(res.data);
+				this.setState({dir: res.data});
+				return res.data;
+			});
 	}
 
 	directionClick = (dir) => {
-		console.log(this.state.currentTile);
+		// console.log(this.state.currentTile);
 		this.setTile(this.state.currentTile);
 		// this.setState({
 		// 	currentTile: this.state.currentTile[dir]
@@ -100,7 +118,13 @@ class TileRenderer extends React.Component {
 				  			justifyContent='center'
 				  			alignItems='center'
 				  		>
-				  				<Tile content={this.state.content}/>
+				  				<Tile 
+				  					content={this.state.content}
+				  					N={this.state.N}
+				  					S={this.state.S}
+				  					E={this.state.E}
+				  					W={this.state.W}
+				  				/>
 				  		</Grid>
 				  	</Grid>
 			  		<Grid 
