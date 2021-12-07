@@ -25,7 +25,9 @@ const DirectionButton = (props) => {
 	return <IconButton onClick={() => {
 		props.callback(props.dir);
 	}}> 
+		{props.dir == 'E' ? <text>{props.label}</text> : <div></div>}
 		{iconMap[props.dir]}
+		{props.dir == 'W' ? <text>{props.label}</text> : <div></div>}
 	</IconButton>
 }
 
@@ -36,10 +38,8 @@ class TileRenderer extends React.Component {
 		this.state = {
 			currentTile: "61afa24a8855006fbb8ea0fd",
 			content: "",
-			N: "",
-			S: "",
-			E: "",
-			W: "",
+			NSEW: [],
+			dirmap: [],
 			dir: [],
 		}
 	}
@@ -58,8 +58,18 @@ class TileRenderer extends React.Component {
 			});
 		var edges = axios.get(`http://localhost:3000/edges/${idString}`)
 			.then(res => {
-				this.setState({dir: res.data});
-				console.log(res.data)
+				var NSEW = []
+				var dirmap = {}
+				res.data.forEach((x,i) => {
+					NSEW.push(x.direction);
+					dirmap[x.direction] = x.label;
+				});
+				this.setState({
+					NSEW: NSEW,
+					dirmap: dirmap,
+					dir: res.data
+				});
+				console.log(dirmap)
 				return res.data;
 			});
 	}
@@ -87,7 +97,12 @@ class TileRenderer extends React.Component {
 					textAlign='left'
 					//backgroundColor='primary.dark'
 				>
-			    	<DirectionButton dir='W' callback={this.directionClick}/>
+			    	{this.state.NSEW.includes('W') ? 
+			    		<DirectionButton 
+			    			dir='W' 
+			    			label = {this.state.dirmap['W']}
+			    			callback={this.directionClick}/> : <div></div>
+			    	}
 			  	</Grid>
 			  	<Grid 
 			  		container xs={10} 
@@ -101,7 +116,9 @@ class TileRenderer extends React.Component {
 			  			item xs={1}
 			  			align='top'
 			  		>
-		  				<DirectionButton dir='N' callback={this.directionClick}/>
+		  				{this.state.NSEW.includes('N') ? 
+		  					<DirectionButton dir='N' callback={this.directionClick}/> : <div></div>
+		  				}
 			  		</Grid>
 			  		<Grid item 
 			  			//backgroundColor='orange'
@@ -115,17 +132,15 @@ class TileRenderer extends React.Component {
 				  		>
 				  				<Tile 
 				  					content={this.state.content}
-				  					N={this.state.N}
-				  					S={this.state.S}
-				  					E={this.state.E}
-				  					W={this.state.W}
 				  				/>
 				  		</Grid>
 				  	</Grid>
 			  		<Grid 
 			  			item xs={1}
 			  		>
-			  			<DirectionButton dir='S' callback={this.directionClick}/>
+			  			{this.state.NSEW.includes('S') ? 
+			  				<DirectionButton dir='S' callback={this.directionClick}/> : <div></div>
+			  			}
 			  		</Grid>
 			  	</Grid>
 			  	<Grid 
@@ -133,7 +148,12 @@ class TileRenderer extends React.Component {
 			  		textAlign='right' 
 			  		//backgroundColor='primary.dark'
 			  	>
-			  		<DirectionButton dir='E' callback={this.directionClick}/>
+			  		{this.state.NSEW.includes('E') ? 
+			    		<DirectionButton 
+			    			dir='E' 
+			    			label = {this.state.dirmap['E']}
+			    			callback={this.directionClick}/> : <div></div>
+			  		}
 			  	</Grid>
 			</Grid>	
 			</Box>
