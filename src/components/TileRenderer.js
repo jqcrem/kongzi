@@ -34,13 +34,13 @@ class TileRenderer extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			currentTile: "61ae3aff9b0eb350c2df0867",
+			currentTile: "61afa24a8855006fbb8ea0fd",
 			content: "",
 			N: "",
 			S: "",
 			E: "",
 			W: "",
-			dir: {},
+			dir: [],
 		}
 	}
 
@@ -52,19 +52,14 @@ class TileRenderer extends React.Component {
 		axios.get(`http://localhost:3000/rituals/${idString}`)
 			.then(res => {
 				console.log(res.data)
-				console.log(res.data.E);
 				this.setState({
 					content: res.data.content,
-					N: res.data.N,
-					S: res.data.S,
-					E: res.data.E,
-					W: res.data.W
 				});
 			});
 		var edges = axios.get(`http://localhost:3000/edges/${idString}`)
 			.then(res => {
-				// console.log(res.data);
 				this.setState({dir: res.data});
+				console.log(res.data)
 				return res.data;
 			});
 	}

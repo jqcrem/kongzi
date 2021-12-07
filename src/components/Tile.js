@@ -43,7 +43,7 @@ const OptionsRow = (props) => {
 		{Object.entries(props.directions).map((element, index) => {
 			{/*console.log("item");*/}
 			return (
-				<Grid item>
+				<Grid item key={index}>
 					<OptionsBox text={element[1] ? element[1] : ""}/>
 				</Grid>
 			)
@@ -70,3 +70,11 @@ const Tile = (props) => {
 
 export default Tile;
 
+/*
+Next steps:
+-Add updating text and directions per tile
+-Format directions next to arrows
+-Write up tiles and put in database
+-Add escape key information panel
+-Add space key to move in same slide
+*/

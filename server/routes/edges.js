@@ -1,5 +1,6 @@
 const router = require('express').Router();
 let Edge = require('../models/edge.model');
+let Ritual = require('../models/ritual.model');
 
 router.route('/').get((req, res) => {
 	console.log('edge get');
@@ -13,11 +14,15 @@ router.route('/add').post((req, res) => {
 	const ritualA = req.body.ritualA;
 	const ritualB = req.body.ritualB;
 	const direction = req.body.direction;
+	const label = req.body.label;
+	const category = req.body.category;
 
 	const newEdge = new Edge({
 		'ritualA': ritualA,
 		'ritualB': ritualB,
-		'direction': direction
+		'direction': direction,
+		'label': label,
+		'category': category
 	});
 
 	newEdge.save()
@@ -25,10 +30,47 @@ router.route('/add').post((req, res) => {
 		.catch(err => res.status(400).json('Error: '+err));
 })
 
+router.route('/addByLabel').post((req, res) => {
+	console.log('edge add by label');
+	const labelA = req.body.labelA;
+	const labelB = req.body.labelB;
+	const direction = req.body.direction;
+	const label = req.body.label;
+	const category = req.body.category;
+	var ritualA;
+	var ritualB;
+
+	Ritual.findOne({'label': labelA})
+	.then(res => {
+		//console.log(res);
+		//console.log(String(res._id))
+		ritualA = String(res._id)
+		//console.log(ritualA);
+		return Ritual.findOne({'label': labelB});
+	})
+	.then(res => {
+		ritualB = String(res._id)
+		console.log(ritualB);
+		console.log(ritualA);
+		const newEdge = new Edge({
+			'ritualA': ritualA,
+			'ritualB': ritualB,
+			'direction': direction,
+			'label': label,
+			'category': category
+		});
+		console.log("LABEL");
+		console.log(label);
+		return newEdge.save();
+	})
+	.then(() => res.json('edge added by label!'))
+	.catch(err => res.status(400).json('Error: '+err));
+})
+
 router.route('/:id').get((req, res) => {
 	console.log('edge get by id');
 
-	Edge.findOne({ritualA: req.params.id})
+	Edge.find({ritualA: req.params.id})
 		.then(ritual => res.json(ritual))
 		.catch(err => res.status(400).json('Error: '+err));
 });
