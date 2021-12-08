@@ -91,7 +91,7 @@ router.route('/:id').post((req, res) => {
 	console.log('edge get by id');
 	console.log(req.body);
 
-	Edge.find({ritualA: req.params.id, category: req.body.category})
+	Edge.find({ritualA: req.params.id, category: {$in: req.body.category}})
 		.then(ritual => res.json(ritual))
 		.catch(err => res.status(400).json('Error: '+err));
 });

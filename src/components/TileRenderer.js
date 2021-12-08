@@ -59,7 +59,7 @@ class TileRenderer extends React.Component {
 		})
 	}
 
-	setTile = (idString) => {
+	setTile = (idString, category) => {
 		axios.get(`http://localhost:3000/rituals/${idString}`)
 			.then(res => {
 				console.log('DATA')
@@ -79,7 +79,9 @@ class TileRenderer extends React.Component {
 				res.data.forEach((x,i) => {
 					NSEW.push(x.direction);
 					labelmap[x.direction] = x.label;
-					dirmap[x.direction] = x.ritualB;
+					dirmap[x.direction] = {
+						'ritual': x.ritualB,
+						'category': x.category};
 				});
 				this.setState({
 					NSEW: NSEW,
@@ -93,9 +95,11 @@ class TileRenderer extends React.Component {
 	}
 
 	directionClick = (dir) => {
-		var ritualID = this.state.dirmap[dir];
+		var edge = this.state.dirmap[dir]
+		var ritualID = edge ? edge['ritual'] : null;
+		var category = edge ? edge['category'] : null;
 		if (ritualID) {
-			this.setTile(ritualID)
+			this.setTile(ritualID, category)
 		};
 	}
 
