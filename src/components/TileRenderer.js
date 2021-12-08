@@ -12,6 +12,7 @@ import Tile from './Tile';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import * as TileDatum from './TileData';
 import axios from 'axios';
+import { useScrollDirection } from 'react-use-scroll-direction'
 
 
 
@@ -22,12 +23,13 @@ const DirectionButton = (props) => {
 		'N': <i class="bi bi-chevron-compact-up text-warning" style={{fontSize: 70}}></i>,
 		'S': <i class="bi bi-chevron-compact-down text-warning" style={{fontSize: 70}}></i>
 	};
-	return <IconButton onClick={() => {
-		props.callback(props.dir);
-	}}> 
-		{props.dir == 'E' ? <text>{props.label}</text> : <div></div>}
+	return <IconButton 
+		onClick={() => {props.callback(props.dir);}}
+		style={{flexDirection:['N','S'].includes(props.dir) ? 'column' : 'row'}}
+	> 
+		{['E','S'].includes(props.dir) ? <text>{props.label}</text> : <div></div>}
 		{iconMap[props.dir]}
-		{props.dir == 'W' ? <text>{props.label}</text> : <div></div>}
+		{['W', 'N'].includes(props.dir) ? <text>{props.label}</text> : <div></div>}
 	</IconButton>
 }
 
@@ -44,9 +46,13 @@ class TileRenderer extends React.Component {
 			dir: [],
 		}
 	}
+	handleScroll = (e) => {
+		console.log(e);
+	}
 
 	componentDidMount = () => {
 		this.setTile(this.state.currentTile);
+		window.addEventListener('scroll', this.handleScroll, { passive: true })
 	}
 
 	setTile = (idString) => {
@@ -83,6 +89,7 @@ class TileRenderer extends React.Component {
 		this.setTile(ritualID);
 	}
 
+
 	render() {
 		return (
 			<Box
@@ -118,7 +125,10 @@ class TileRenderer extends React.Component {
 			  			align='top'
 			  		>
 		  				{this.state.NSEW.includes('N') ? 
-		  					<DirectionButton dir='N' callback={this.directionClick}/> : <div></div>
+		  					<DirectionButton 
+		  						dir='N' 
+		  						label = {this.state.labelmap['N']}
+		  						callback={this.directionClick}/> : <div></div>
 		  				}
 			  		</Grid>
 			  		<Grid item 
@@ -140,7 +150,10 @@ class TileRenderer extends React.Component {
 			  			item xs={1}
 			  		>
 			  			{this.state.NSEW.includes('S') ? 
-			  				<DirectionButton dir='S' callback={this.directionClick}/> : <div></div>
+			  				<DirectionButton 
+			  					dir='S' 
+			  					label = {this.state.labelmap['S']}
+			  					callback={this.directionClick}/> : <div></div>
 			  			}
 			  		</Grid>
 			  	</Grid>
