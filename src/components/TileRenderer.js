@@ -39,7 +39,8 @@ class TileRenderer extends React.Component {
 			currentTile: "61afa24a8855006fbb8ea0fd",
 			content: "",
 			NSEW: [],
-			dirmap: [],
+			labelmap: {},
+			dirmap: {},
 			dir: [],
 		}
 	}
@@ -58,14 +59,17 @@ class TileRenderer extends React.Component {
 			});
 		var edges = axios.get(`http://localhost:3000/edges/${idString}`)
 			.then(res => {
-				var NSEW = []
-				var dirmap = {}
+				var NSEW = [];
+				var labelmap = {};
+				var dirmap = {};
 				res.data.forEach((x,i) => {
 					NSEW.push(x.direction);
-					dirmap[x.direction] = x.label;
+					labelmap[x.direction] = x.label;
+					dirmap[x.direction] = x.ritualB;
 				});
 				this.setState({
 					NSEW: NSEW,
+					labelmap: labelmap,
 					dirmap: dirmap,
 					dir: res.data
 				});
@@ -75,11 +79,8 @@ class TileRenderer extends React.Component {
 	}
 
 	directionClick = (dir) => {
-		// console.log(this.state.currentTile);
-		this.setTile(this.state.currentTile);
-		// this.setState({
-		// 	currentTile: this.state.currentTile[dir]
-		// });
+		var ritualID = this.state.dirmap[dir];
+		this.setTile(ritualID);
 	}
 
 	render() {
@@ -100,7 +101,7 @@ class TileRenderer extends React.Component {
 			    	{this.state.NSEW.includes('W') ? 
 			    		<DirectionButton 
 			    			dir='W' 
-			    			label = {this.state.dirmap['W']}
+			    			label = {this.state.labelmap['W']}
 			    			callback={this.directionClick}/> : <div></div>
 			    	}
 			  	</Grid>
@@ -151,7 +152,7 @@ class TileRenderer extends React.Component {
 			  		{this.state.NSEW.includes('E') ? 
 			    		<DirectionButton 
 			    			dir='E' 
-			    			label = {this.state.dirmap['E']}
+			    			label = {this.state.labelmap['E']}
 			    			callback={this.directionClick}/> : <div></div>
 			  		}
 			  	</Grid>
