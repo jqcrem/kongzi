@@ -1,12 +1,12 @@
 <link href='https://fonts.googleapis.com/css?family=Playfair Display' rel='stylesheet'>
 
 .meditationContent {
-  font-family: 'Playfair Display';
+  font-family: 'Roboto Mono';
   text-align:  'left';
 }.large {
-  font-size:  100px;
-}.medium{
   font-size:  50px;
+}.medium{
+  font-size:  30px;
 }.small{
   font-size:  25px;
 }

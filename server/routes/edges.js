@@ -87,10 +87,11 @@ router.route('/delByLabel').post((req, res) => {
 	.catch(err => res.status(400).json('Error: '+err));
 })
 
-router.route('/:id').get((req, res) => {
+router.route('/:id').post((req, res) => {
 	console.log('edge get by id');
+	console.log(req.body);
 
-	Edge.find({ritualA: req.params.id})
+	Edge.find({ritualA: req.params.id, category: req.body.category})
 		.then(ritual => res.json(ritual))
 		.catch(err => res.status(400).json('Error: '+err));
 });
