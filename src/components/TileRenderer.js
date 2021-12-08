@@ -12,7 +12,7 @@ import Tile from './Tile';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import * as TileDatum from './TileData';
 import axios from 'axios';
-import { useScrollDirection } from 'react-use-scroll-direction'
+
 
 
 
@@ -38,7 +38,7 @@ class TileRenderer extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			currentTile: "61afa24a8855006fbb8ea0fd",
+			currentTile: "61b02885f5cb70b250f12eb9",
 			content: "",
 			NSEW: [],
 			labelmap: {},
@@ -46,13 +46,16 @@ class TileRenderer extends React.Component {
 			dir: [],
 		}
 	}
-	handleScroll = (e) => {
-		console.log(e);
-	}
 
 	componentDidMount = () => {
 		this.setTile(this.state.currentTile);
-		window.addEventListener('scroll', this.handleScroll, { passive: true })
+		// window.addEventListener('scroll', this.handleScroll, { passive: true })
+		document.addEventListener('keyup', event => {
+		  if (event.code === 'Space') {
+		    console.log('Space pressed')
+		    this.directionClick('P');
+		  }
+		})
 	}
 
 	setTile = (idString) => {
@@ -86,7 +89,9 @@ class TileRenderer extends React.Component {
 
 	directionClick = (dir) => {
 		var ritualID = this.state.dirmap[dir];
-		this.setTile(ritualID);
+		if (ritualID) {
+			this.setTile(ritualID)
+		};
 	}
 
 
