@@ -67,6 +67,26 @@ router.route('/addByLabel').post((req, res) => {
 	.catch(err => res.status(400).json('Error: '+err));
 })
 
+router.route('/delByLabel').post((req, res) => {
+	console.log('edge del by label');
+	const labelA = req.body.labelA;
+	const labelB = req.body.labelB;
+	var ritualA;
+	var ritualB;
+
+	Ritual.findOne({'label': labelA})
+	.then(res => {
+		ritualA = String(res._id)
+		return Ritual.findOne({'label': labelB});
+	})
+	.then(res => {
+		ritualB = String(res._id)
+		return Edge.findOneAndDelete({ritualA: ritualA, ritualB: ritualB})
+	})
+	.then(edge => res.json(edge))
+	.catch(err => res.status(400).json('Error: '+err));
+})
+
 router.route('/:id').get((req, res) => {
 	console.log('edge get by id');
 
