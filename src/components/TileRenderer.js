@@ -60,11 +60,10 @@ class TileRenderer extends React.Component {
 	}
 
 	setTile = (idString, category) => {
+		console.log(`GETING CATEGORY ${category}`)
 		axios.get(`http://localhost:3000/rituals/${idString}`)
 			.then(res => {
-				console.log('DATA')
-				console.log(res.data)
-				console.log(res.data.category)
+				console.log(`Content: ${res.data.content} and category: ${res.data.category}`)
 				this.setState({
 					content: res.data.content,
 					category: res.data.category
@@ -77,6 +76,8 @@ class TileRenderer extends React.Component {
 				var labelmap = {};
 				var dirmap = {};
 				res.data.forEach((x,i) => {
+					console.log(`Current category: ${this.state.category}`)
+					console.log(`Edge data: ${x.category} ${i}`)
 					NSEW.push(x.direction);
 					labelmap[x.direction] = x.label;
 					dirmap[x.direction] = {
@@ -87,7 +88,8 @@ class TileRenderer extends React.Component {
 					NSEW: NSEW,
 					labelmap: labelmap,
 					dirmap: dirmap,
-					dir: res.data
+					dir: res.data,
+					category: res.data.category
 				});
 				console.log(dirmap)
 				return res.data;
@@ -96,6 +98,7 @@ class TileRenderer extends React.Component {
 
 	directionClick = (dir) => {
 		var edge = this.state.dirmap[dir]
+		// console.log(`Clicked edge: ${edge}`)
 		var ritualID = edge ? edge['ritual'] : null;
 		var category = edge ? edge['category'] : null;
 		if (ritualID) {

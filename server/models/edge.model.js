@@ -7,7 +7,7 @@ const edgeSchema = new Schema({
 	ritualB: {type: String, required: true},
 	direction: {type: String, required: true},
 	label: {type: String, required: true},
-	category: {type: String, required: true}
+	category: {type: [String], required: true}
 }, {
   timestamps: true,
 })
