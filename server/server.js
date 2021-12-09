@@ -7,7 +7,7 @@ require('dotenv').config();
 
 const app = express();
 
-const publicPath = path.join(__dirname, '..', 'src');
+const publicPath = path.join(__dirname, '..', 'build');
 
 const port = process.env.PORT || 3000;
 
@@ -19,7 +19,7 @@ app.use(express.json());
 app.use('/rituals', ritualRouter);
 app.use('/edges', edgeRouter);
 
-//app.use('static', express.static(publicPath));
+app.use(express.static(publicPath));
 
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri);
@@ -28,7 +28,7 @@ connection.once('open', () => {
    console.log('MongoDB connection successful');
 })
 
-app.get('/static', (req, res) => {
+app.get('*', (req, res) => {
    res.sendFile(path.join(publicPath, 'index.html'));
 });
 
