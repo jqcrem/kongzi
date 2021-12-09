@@ -6,7 +6,6 @@ import {
 	IconButton
 } from '@mui/material';
 import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
 import '../App.css';
 import Tile from './Tile';
 import 'bootstrap-icons/font/bootstrap-icons.css';
