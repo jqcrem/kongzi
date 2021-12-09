@@ -60,14 +60,14 @@ class TileRenderer extends React.Component {
 	}
 
 	setTile = (idString) => {
-		axios.get(`http://localhost:3000/rituals/${idString}`)
+		axios.get(`/rituals/${idString}`)
 			.then(res => {
 				console.log(`Content: ${res.data.content} and category: ${res.data.category}`)
 				this.setState({
 					content: res.data.content,
 				});
 			});
-		var edges = axios.post(`http://localhost:3000/edges/${idString}`)
+		var edges = axios.post(`/edges/${idString}`)
 			.then(res => {
 				var NSEW = [];
 				var labelmap = {};
