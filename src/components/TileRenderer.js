@@ -59,18 +59,15 @@ class TileRenderer extends React.Component {
 		})
 	}
 
-	setTile = (idString, category) => {
-		console.log(`GETING CATEGORY ${category}`)
+	setTile = (idString) => {
 		axios.get(`http://localhost:3000/rituals/${idString}`)
 			.then(res => {
 				console.log(`Content: ${res.data.content} and category: ${res.data.category}`)
 				this.setState({
 					content: res.data.content,
-					category: res.data.category
 				});
 			});
-		var edges = axios.post(`http://localhost:3000/edges/${idString}`, 
-				{category: this.state.category})
+		var edges = axios.post(`http://localhost:3000/edges/${idString}`)
 			.then(res => {
 				var NSEW = [];
 				var labelmap = {};
@@ -102,7 +99,7 @@ class TileRenderer extends React.Component {
 		var ritualID = edge ? edge['ritual'] : null;
 		var category = edge ? edge['category'] : null;
 		if (ritualID) {
-			this.setTile(ritualID, category)
+			this.setTile(ritualID)
 		};
 	}
 
