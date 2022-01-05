@@ -10,4 +10,4 @@ The stages of the meditations are stored in a MongoDB database collection, with 
 
 In the future, where I would like to take this is by adding more animation and graphics to the slide transitions, and then allowing users to create, save, and share their own meditations.
 
-The app is launched on Heroku, and can be accessed by going to kongzi.herokuapp.com
+The app is deployed on Heroku, and can be accessed by going to [kongzi.herokuapp.com](kongzi.herokuapp.com)
